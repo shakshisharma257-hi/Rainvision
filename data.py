@@ -84,12 +84,9 @@ RainVision India is an interactive data science dashboard that transforms raw we
 """)
 
     st.divider()
+    image = Image.open("img 2.jpg")
+    st.image(image)
 
-    image = Image.open(r"C:\Users\Sakshi Sharma\Desktop\project\img 2.jpg")
-    st.image(
-    image,
-    use_container_width=True
-)
     st.divider()
 
     st.markdown("## 📖 Project Overview")
@@ -2192,8 +2189,8 @@ elif menu == "Interactive Analysis":
  left, right = st.columns([2, 1])
 
  with left:
-    st.image(r"C:\Users\Sakshi Sharma\Desktop\project\cropped-monsoon-India-1-2026-06-e41b01bac11fd6532854b0eed97c64a9.avif", use_container_width=True)
-
+    image = Image.open("cropped-monsoon-India-1-2026-06-e41b01bac11fd6532854b0eed97c64a9.jpg")
+    st.image(image)
  with right:
     st.info(f"""
  ### 🔍 Project Insights
