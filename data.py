@@ -4,7 +4,6 @@ import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 import numpy as np
-from scipy.stats import norm
 from PIL import Image
     
 @st.cache_data
@@ -1680,50 +1679,24 @@ elif menu == "Rainfall Distribution":
  if chart == "Distribution Histogram":
 
 
+   filtered_df = df.copy()
    rain = filtered_df["rainfall"].dropna()
-
-   mu = rain.mean()
-   sigma = rain.std()
-
-   fig = go.Figure()
-
-   fig.add_trace(
-    go.Histogram(
-        x=rain,
-        histnorm="probability density",
-        nbinsx=15,
-        marker=dict(
-            color="lightgreen",
-            line=dict(color="orange", width=2)
-        ),
-        opacity=0.85,
-        name="Rainfall"
-    )
-)
-
-   x = np.linspace(rain.min(), rain.max(), 300)
-   y = norm.pdf(x, mu, sigma)
-
-   fig.add_trace(
-    go.Scatter(
-        x=x,
-        y=y,
-        mode="lines",
-        line=dict(color="orangered", width=4),
-        name="Normal Distribution"
-    )
-)
+ 
+   fig = px.histogram(
+    x=rain,
+    nbins=20,
+    marginal="box",        
+    histnorm="probability density",
+    labels={"x": "Rainfall (mm)", "y": "Density"},
+    color_discrete_sequence=["#636EFA"]
+ )
 
    fig.update_layout(
-    title="🌧️ Rainfall Distribution with Normal Curve",
-    xaxis_title="Rainfall (mm)",
-    yaxis_title="Density",
+    template="plotly_dark",
     height=600,
-    hovermode="x unified"
-)
+  )
 
    st.plotly_chart(fig, use_container_width=True)
-
  elif chart == "Box Plot":
 
     fig = px.box(
